@@ -1,7 +1,6 @@
 <?php
 class fnc{
     var $name;
-
     public $fname;
     public $yob;
     public $age;
