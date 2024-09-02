@@ -4,11 +4,11 @@
 ?>
             <div class="topnav">
                 <a href="./">Home</a>
-                <a href="">About Us</a>
-                <a href="">Our Projects</a>
-                <a href="">Our Portofio</a>
-                <a href="">Blog</a>
-                <a href="">Contact Us</a>
+                <a href="./#about">About Us</a>
+                <a href="./#projects">Our Projects</a>
+                <a href="./#portfolio">Our Portofio</a>
+                <a href="./#blog">Blog</a>
+                <a href="./#contact">Contact Us</a>
             </div>
 <?php
     }

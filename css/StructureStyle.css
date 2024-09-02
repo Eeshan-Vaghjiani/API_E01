@@ -6,27 +6,32 @@ margin: 0;
 }
 
 .topnav{
-    background-color: black;
+    background-color: rgba(0, 0, 0);
     overflow: hidden;
+    margin: 0 auto;
+    position: relative;
 }
 
 .topnav a{
-    color: azure;
+    color: rgb(0, 0, 0);
     float: left;
     display: block;
     text-decoration: none;
     text-align: left;
     padding: 14px 16px;
+    margin: 0 auto;
+    
 }
 
 .topnav a:hover{
-    color:black;
-    background-color: azure;
+    color:rgb(0, 0, 0);
+    background-color: rgb(0, 255, 255,0.79);
+    float: left;
 }
 
 
 .footer{
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.568);
     padding: 20px;
     text-align: center;
     color: azure;

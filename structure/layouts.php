@@ -1,4 +1,6 @@
+
 <?php
+
     class layouts{
         public function heading(){
             ?>
@@ -11,6 +13,17 @@
                 <link rel="stylesheet" href="css/style.css" />
             </head>
             <body>
+            <?php
+        }
+    
+        public function phpinfo(){
+            ?>
+            <div class="phpinfo">
+                <?php
+                    print "<h1>PHP Info</h1>";
+                    phpinfo();
+                ?>
+            </div>
             <?php
         }
 
