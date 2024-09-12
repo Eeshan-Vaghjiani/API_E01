@@ -6,12 +6,12 @@ body{
 }
 
 .topnav{
-    background-color: black;
+    background-color: rgb(7, 230, 230);
     overflow: hidden;
 }
 
 .topnav a{
-    color: azure;
+    color: black;
     float: left;
     display: block;
     text-decoration: none;
@@ -20,8 +20,8 @@ body{
 }
 
 .topnav a:hover{
-    color:black;
-    background-color: azure;
+    color:rgb(0, 0, 0);
+    background-color: rgb(69, 165, 165);
 }
 
 .topnav-right{
@@ -29,8 +29,8 @@ body{
 }
 
 .footer{
-    background-color: black;
+    background-color: rgb(7, 230, 230);
     padding: 20px;
     text-align: center;
-    color: azure;
+    color: rgb(0, 0, 0);
 }
