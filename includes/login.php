@@ -4,7 +4,6 @@ session_start(); // Start the session
 // Correct paths for includes
 include '../db.php'; // Adjusted path for db.php
 include '../structure/User.php'; // Adjusted path for User.php
-
 // Initialize the User class
 $user = new User($conn);
 

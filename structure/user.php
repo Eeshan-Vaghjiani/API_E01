@@ -1,5 +1,7 @@
 <?php
-session_start(); // Start the session at the beginning
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} // Start the session at the beginning
 
 class User {
     private $conn;
@@ -12,7 +14,21 @@ class User {
 
     // Method to generate and display the sign-up form
     public function displaySignUpForm() {
+        $flashMessage = $this->getFlashMessage();
+
         echo '
+        <div class="container">';
+        
+        // Display flash message
+        if ($flashMessage) {
+            echo '
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                ' . htmlspecialchars($flashMessage) . '
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+        }
+        echo '
+        
         <form action="" method="POST" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="fullName" class="form-label">Full Name</label>
@@ -113,7 +129,7 @@ class User {
             try {
                 $stmt->execute();
                 // Redirect to index.php
-                header('Location: index.php');
+                header('Location: ../index.php');
                 exit(); // Ensure no further code is executed after redirection
             } catch (PDOException $e) {
                 if ($e->getCode() == 23000) {
@@ -198,5 +214,99 @@ class User {
         }
         return null;
     }
+    // Get all users with pagination
+public function getUsers() {
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $limit = 10;
+    $offset = ($page - 1) * $limit;
+
+    $query = "SELECT * FROM users LIMIT :limit OFFSET :offset";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Handle add user
+public function handleAddUser() {
+    if (isset($_POST['full_name'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['gender'])) {
+        $fullName = $_POST['full_name'];
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $gender = $_POST['gender'];
+
+        $query = "INSERT INTO users (fullname, email, username, password, gender_id) VALUES (:fullname, :email, :username, :password, :gender)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':fullname', $fullName);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':gender', $gender);
+
+        if ($stmt->execute()) {
+            $this->setFlashMessage('User added successfully.');
+        } else {
+            $this->setFlashMessage('Failed to add user.');
+        }
+    }
+}
+
+// Handle update user
+public function handleUpdateUser() {
+    if (isset($_POST['user_id'], $_POST['full_name'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['gender'])) {
+        $userId = $_POST['user_id'];
+        $fullName = $_POST['full_name'];
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $password = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
+        $gender = $_POST['gender'];
+
+        $query = "UPDATE users SET fullname = :fullname, email = :email, username = :username, password = :password, gender_id = :gender WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':fullname', $fullName);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':username', $username);
+        if ($password) {
+            $stmt->bindParam(':password', $password);
+        }
+        $stmt->bindParam(':gender', $gender);
+        $stmt->bindParam(':user_id', $userId);
+
+        if ($stmt->execute()) {
+            $this->setFlashMessage('User updated successfully.');
+        } else {
+            $this->setFlashMessage('Failed to update user.');
+        }
+    }
+}
+
+// Handle delete user
+public function handleDeleteUser() {
+    if (isset($_POST['user_id'])) {
+        $userId = $_POST['user_id'];
+
+        $query = "DELETE FROM users WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $userId);
+
+        if ($stmt->execute()) {
+            $this->setFlashMessage('User deleted successfully.');
+        } else {
+            $this->setFlashMessage('Failed to delete user.');
+        }
+    }
+}
+
+// Get user details for update modal
+public function getUser($userId) {
+    $query = "SELECT * FROM users WHERE user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':user_id', $userId);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }
 ?>

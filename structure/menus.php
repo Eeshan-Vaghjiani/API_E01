@@ -16,8 +16,8 @@
         public function main_right_side_menu(){
 ?>
             <div class="topnav-right">
-                <a href="C:\xampp\htdocs\API_E01\includes\signup.php">Sign Up</a>
-                <a href="C:\xampp\htdocs\API_E01\includes\login.php">Sign In</a>
+                <a href="..\API_E01\includes\signup.php">Sign Up</a>
+                <a href="..\API_E01\includes\login.php">Sign In</a>
             </div>
 <?php
     }
