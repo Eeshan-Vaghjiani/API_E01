@@ -166,7 +166,7 @@ class User {
                     if ($roleId == 0) {
                         header('Location: ../index.php');
                     } else {
-                        header('Location: admin.php');
+                        header('Location: ../Admin.php');
                     }
                     exit(); // Ensure no further code is executed after redirection
                 } else {
