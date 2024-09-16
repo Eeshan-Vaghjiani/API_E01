@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/structure/Admin-class.php'; // Include the Admin class
-include 'db.php'; // Database connection
-include 'structure/User.php'; // Include User class
+require_once __DIR__ . '/structure/Admin-class.php'; 
+include 'db.php'; 
+include 'structure/User.php'; 
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
