@@ -148,27 +148,21 @@ class User {
             // Collect login form data
             $username = $_POST['login_username'] ?? '';
             $password = $_POST['login_password'] ?? '';
-    
-            // Query to find the user
-            $query = "SELECT user_id, password, role_id FROM users WHERE username = :username";
+
+            // Query to find the user by username
+            $query = "SELECT user_id, password, email, role_id FROM users WHERE username = :username";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':username', $username);
-            
+
             try {
                 $stmt->execute();
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
                 if ($user && password_verify($password, $user['password'])) {
-                    // Password is correct
-                    $roleId = $user['role_id'];
-                    
-                    // Redirect based on role ID
-                    if ($roleId == 0) {
-                        header('Location: ../index.php');
-                    } else {
-                        header('Location: ../Admin.php');
-                    }
-                    exit(); // Ensure no further code is executed after redirection
+                    // Password is correct, initiate 2FA
+                    $this->generate2FACode($user['user_id'], $user['email']);
+                    header('Location: user-2fa.php'); // Redirect to 2FA verification page
+                    exit();
                 } else {
                     $this->setFlashMessage('Invalid username or password!');
                 }
@@ -176,6 +170,23 @@ class User {
                 $this->setFlashMessage('Failed to log in: ' . $e->getMessage());
             }
         }
+    }
+
+    // Generate and send a 2FA code via email
+    private function generate2FACode($userId, $email) {
+        $code = rand(100000, 999999); // Generate a 6-digit random code
+        $_SESSION['2fa_code'] = $code;
+        $_SESSION['user_id'] = $userId;
+
+        // Store the code in the session or database for verification
+        $query = "UPDATE users SET two_factor_code = :code WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':code', $code);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+        // Simulate sending email (replace this with actual email-sending logic)
+        mail($email, "Your 2FA Code", "Your 2FA code is: $code");
     }
 
     // Convert gender to ID
