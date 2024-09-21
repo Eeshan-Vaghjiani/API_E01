@@ -168,7 +168,7 @@ class User {
                     if (password_verify($password, $user['password'])) {
                         // Password is correct, initiate 2FA
                         $this->generate2FACode($user['user_id'], $user['email']);
-                        header('Location: user-2fa.php'); // Redirect to 2FA verification page
+                        header('Location: ../structure/user-2fa.php'); // Redirect to 2FA verification page
                         exit();
                     } else {
                         // Password doesn't match
@@ -193,7 +193,7 @@ class User {
         $_SESSION['user_id'] = $userId;
 
         // Store the code in the session or database for verification
-        $query = "UPDATE users SET two_factor_code = :code WHERE user_id = :user_id";
+        $query = "UPDATE users SET code = :code WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':code', $code);
         $stmt->bindParam(':user_id', $userId);
