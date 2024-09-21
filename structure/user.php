@@ -130,6 +130,8 @@ class User {
                 $stmt->execute();
                 // Redirect to index.php
                 header('Location: ../index.php');
+                $emailService = new EmailService();
+                $emailService->sendRegistrationEmail($email, $username);
                 exit(); // Ensure no further code is executed after redirection
             } catch (PDOException $e) {
                 if ($e->getCode() == 23000) {
@@ -140,6 +142,9 @@ class User {
                 return false;
             }
         }
+
+  
+
     }
 
     // Method to handle login form submission
