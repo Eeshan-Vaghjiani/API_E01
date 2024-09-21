@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['verify_2fa'])) {
         <form action="" method="POST" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="2fa_code" class="form-label">Enter 2FA Code</label>
-                <input type="text" class="form-control" id="2fa_code" name="2fa_code" required>
+                <input type="text" class="form-control" id="code" name="code" required>
                 <div class="invalid-feedback">Please enter your 2FA code.</div>
             </div>
             <button type="submit" name="verify_2fa" class="btn btn-primary">Verify</button>

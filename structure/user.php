@@ -202,6 +202,7 @@ class User {
             $inputCode = $_POST['code'] ?? '';
             $userId = $_SESSION['user_id'];
     
+            // Adjust the query to select the correct column
             $query = "SELECT code FROM users WHERE user_id = :user_id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_id', $userId);
@@ -224,7 +225,8 @@ class User {
             }
         }
         return ''; // Return an empty string if no error
-    }  
+    }
+    
     
     // Generate and send a 2FA code via email
     public function generate2FACode($userId, $email) {
