@@ -148,29 +148,43 @@ class User {
             // Collect login form data
             $username = $_POST['login_username'] ?? '';
             $password = $_POST['login_password'] ?? '';
-
-            // Query to find the user by username
+    
+            if (empty($username) || empty($password)) {
+                $this->setFlashMessage('Username and password cannot be empty.');
+                return;
+            }
+    
+            // Query to find the user
             $query = "SELECT user_id, password, email, role_id FROM users WHERE username = :username";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':username', $username);
-
+    
             try {
                 $stmt->execute();
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if ($user && password_verify($password, $user['password'])) {
-                    // Password is correct, initiate 2FA
-                    $this->generate2FACode($user['user_id'], $user['email']);
-                    header('Location: user-2fa.php'); // Redirect to 2FA verification page
-                    exit();
+    
+                if ($user) {
+                    // User found, now verify password
+                    if (password_verify($password, $user['password'])) {
+                        // Password is correct, initiate 2FA
+                        $this->generate2FACode($user['user_id'], $user['email']);
+                        header('Location: user-2fa.php'); // Redirect to 2FA verification page
+                        exit();
+                    } else {
+                        // Password doesn't match
+                        $this->setFlashMessage('Invalid password!');
+                    }
                 } else {
+                    // No user found
                     $this->setFlashMessage('Invalid username or password!');
                 }
             } catch (PDOException $e) {
-                $this->setFlashMessage('Failed to log in: ' . $e->getMessage());
+                // Handle any errors with the query
+                $this->setFlashMessage('Database error: ' . $e->getMessage());
             }
         }
     }
+    
 
     // Generate and send a 2FA code via email
     private function generate2FACode($userId, $email) {
