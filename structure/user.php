@@ -189,10 +189,45 @@ class User {
             }
         }
     }
+    public function getUserEmail($userId) {
+        $query = "SELECT email FROM users WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['email'];
+    }
+    public function verify2FACode() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['verify_2fa'])) {
+            $inputCode = $_POST['2fa_code'] ?? '';
+            $userId = $_SESSION['user_id'];
     
-
+            $query = "SELECT two_factor_code FROM users WHERE user_id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $storedCode = $result['two_factor_code'];
+    
+            if ($inputCode == $storedCode) {
+                // Clear the code and log in the user
+                $_SESSION['authenticated'] = true;
+                $query = "UPDATE users SET two_factor_code = NULL WHERE user_id = :user_id";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':user_id', $userId);
+                $stmt->execute();
+    
+                header('Location: ../index.php'); // Redirect to the index page
+                exit();
+            } else {
+                return 'Invalid 2FA code!'; // Return error message for display
+            }
+        }
+        return ''; // Return an empty string if no error
+    }  
+    
     // Generate and send a 2FA code via email
-    private function generate2FACode($userId, $email) {
+    public function generate2FACode($userId, $email) {
         $code = rand(100000, 999999); // Generate a 6-digit random code
         $_SESSION['2fa_code'] = $code;
         $_SESSION['user_id'] = $userId;
@@ -222,7 +257,7 @@ class User {
     }
 
     // Set a flash message
-    private function setFlashMessage($message) {
+    public function setFlashMessage($message) {
         $_SESSION['flash_message'] = $message;
         $_SESSION['flash_message_time'] = time();
     }
