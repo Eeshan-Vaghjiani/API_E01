@@ -54,7 +54,25 @@ Eeshan Vaghjiani ICSE Internet Application Proggraming Project
             $this->mail->setFrom('evaghjiani04@gmail.com', 'Eeshan');
             $this->mail->addAddress($email, $username);
             $this->mail->Subject = 'Your 2FA Code';
-            $this->mail->Body    = 'Your 2FA code is: ' . $code;
+            $this->mail->Body    = "
+
+Dear $username,
+
+For your security, we have enabled two-factor authentication (2FA) for your account. 
+
+Your verification code is: $code
+
+Please enter this code in the required field to complete your login process. This code is valid for a short period of time for your security.
+
+If you did not request this code, please ignore this message.
+
+Thank you for being a part of Vaghjiani Innovations!
+
+Best regards,
+Eeshan Vaghjiani ICSE Internet Application Proggraming Project
+166981, 
++254 704 861 135.
+";
             $this->mail->send();
             return true;
         } catch (Exception $e) {
