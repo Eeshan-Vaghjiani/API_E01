@@ -24,7 +24,24 @@ class EmailService {
             $this->mail->setFrom('evaghjiani04@gmail.com', 'Eeshan');
             $this->mail->addAddress($email, $username);
             $this->mail->Subject = 'Welcome to Our Website';
-            $this->mail->Body    = 'Thank you for registering, ' . $username . '!';
+            $this->mail->Body    = "
+Dear $username,
+
+We are thrilled to have you on board! Thank you for registering with us. At Vaghjiani Innovations, we strive to provide the best experience for our users. 
+
+Here are a few things you can do to get started:
+1. Explore your dashboard.
+2. Customize your profile.
+3. Reach out to our support team if you need any assistance.
+
+We are excited to help you achieve your goals!
+
+Best regards,
+Eeshan Vaghjiani ICSE Internet Application Proggraming Project
+166981,
++254 704 861 135.
+
+" . $username . '!';
             $this->mail->send();
             return true;
         } catch (Exception $e) {
