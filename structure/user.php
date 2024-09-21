@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 } // Start the session at the beginning
-
+require_once '../includes/EmailService.php';
 class User {
     private $conn;
 
@@ -200,7 +200,8 @@ class User {
         $stmt->execute();
 
         // Simulate sending email (replace this with actual email-sending logic)
-        mail($email, "Your 2FA Code", "Your 2FA code is: $code");
+        $emailService = new EmailService();
+        $emailService->send2FACode($email, $userId, $code);
     }
 
     // Convert gender to ID
