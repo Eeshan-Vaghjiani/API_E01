@@ -199,20 +199,20 @@ class User {
     }
     public function verify2FACode() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['verify_2fa'])) {
-            $inputCode = $_POST['2fa_code'] ?? '';
+            $inputCode = $_POST['code'] ?? '';
             $userId = $_SESSION['user_id'];
     
-            $query = "SELECT two_factor_code FROM users WHERE user_id = :user_id";
+            $query = "SELECT code FROM users WHERE user_id = :user_id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_id', $userId);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            $storedCode = $result['two_factor_code'];
+            $storedCode = $result['code'];
     
             if ($inputCode == $storedCode) {
                 // Clear the code and log in the user
                 $_SESSION['authenticated'] = true;
-                $query = "UPDATE users SET two_factor_code = NULL WHERE user_id = :user_id";
+                $query = "UPDATE users SET code = NULL WHERE user_id = :user_id";
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(':user_id', $userId);
                 $stmt->execute();

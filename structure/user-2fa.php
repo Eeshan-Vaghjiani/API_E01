@@ -1,6 +1,7 @@
 <?php
+
 // Include necessary files
-require '../includes/db.php'; // Adjust the path as necessary
+require '../db.php'; // Adjust the path as necessary
 require '../includes/EmailService.php'; // Adjust the path as necessary
 require '../structure/user.php'; // Adjust the path as necessary
 
