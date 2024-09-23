@@ -33,19 +33,18 @@ class EmailService {
                 <style>
                     .email-body {
                         font-family: Arial, sans-serif;
-                        color: #333;
+                        color: #black;
                         padding: 20px;
-                        background-color: #f4f4f4;
                         border-radius: 10px;
                     }
-                    h1, p {
-                        color: #007bff;
+                    h2, p {
+                        color: #black;
                     }
                 </style>
             </head>
             <body>
                 <div class='email-body'>
-                    <h1>Welcome, $username!</h1>
+                    <h2>Welcome, $username!</h2>
                     <p>We are thrilled to have you on board! Thank you for registering with us.</p>
                     <p>At Vaghjiani Innovations, we strive to provide the best experience for our users.</p>
                     <p>Here are a few things you can do to get started:</p>
