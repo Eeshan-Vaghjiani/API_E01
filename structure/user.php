@@ -98,26 +98,26 @@ class User {
             $password = $_POST['password'] ?? '';
             $passwordConfirm = $_POST['password_confirm'] ?? '';
             $gender = $_POST['gender'] ?? '';
-
+    
             // Validate password confirmation
             if ($password !== $passwordConfirm) {
                 $this->setFlashMessage('Passwords do not match!');
                 return false;
             }
-
+    
             // Convert gender to gender ID
             $genderId = $this->convertGenderToId($gender);
-
+    
             // Default role ID is 0
             $roleId = 0;
-
+    
             // Hash the password
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
+    
             // Insert the user into the database
             $query = "INSERT INTO users (fullname, email, username, password, gender_id, role_id) VALUES (:fullname, :email, :username, :password, :gender_id, :role_id)";
             $stmt = $this->conn->prepare($query);
-
+    
             // Bind parameters
             $stmt->bindParam(':fullname', $fullName);
             $stmt->bindParam(':email', $email);
@@ -125,16 +125,16 @@ class User {
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':gender_id', $genderId, PDO::PARAM_INT);
             $stmt->bindParam(':role_id', $roleId, PDO::PARAM_INT);
-
+    
             try {
                 $stmt->execute();
-                // Redirect to index.php
+                // Redirect to index.php after successful registration
                 header('Location: ../index.php');
                 $emailService = new EmailService();
                 $emailService->sendRegistrationEmail($email, $username);
                 exit(); // Ensure no further code is executed after redirection
             } catch (PDOException $e) {
-                if ($e->getCode() == 23000) {
+                if ($e->getCode() == 23000) { // Handle duplicate entry (email/username exists)
                     $this->setFlashMessage('Username or email already exists!');
                 } else {
                     $this->setFlashMessage('Failed to register user: ' . $e->getMessage());
@@ -142,12 +142,8 @@ class User {
                 return false;
             }
         }
-
-  
-
     }
-
-    // Method to handle login form submission
+    
     public function handleLogin() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
             // Collect login form data
@@ -173,6 +169,8 @@ class User {
                     if (password_verify($password, $user['password'])) {
                         // Password is correct, initiate 2FA
                         $this->generate2FACode($user['user_id'], $user['email']);
+                        $_SESSION['user_id'] = $user['user_id']; // Store user ID in session for later use
+                        $_SESSION['email'] = $user['email']; // Store email in session to avoid issues with wrong emails being used
                         header('Location: ../structure/user-2fa.php'); // Redirect to 2FA verification page
                         exit();
                     } else {
@@ -189,6 +187,7 @@ class User {
             }
         }
     }
+    
     public function getUserEmail($userId) {
         $query = "SELECT email FROM users WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
@@ -197,6 +196,7 @@ class User {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['email'];
     }
+    
     public function verify2FACode() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['verify_2fa'])) {
             $inputCode = $_POST['code'] ?? '';
@@ -227,7 +227,6 @@ class User {
         return ''; // Return an empty string if no error
     }
     
-    
     // Generate and send a 2FA code via email
     public function generate2FACode($userId, $email) {
         $code = rand(100000, 999999); // Generate a 6-digit random code
@@ -239,7 +238,7 @@ class User {
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $username = $result['username']; // Get the username
-        
+    
         // Store the code in the database
         $query = "UPDATE users SET code = :code WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
@@ -251,6 +250,7 @@ class User {
         $emailService = new EmailService();
         $emailService->send2FACode($email, $username, $code);
     }
+    
     
 
     // Convert gender to ID

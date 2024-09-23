@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/structure/Admin-class.php'; 
+require_once __DIR__ . '/structure/Admin-class.php';
 include 'db.php'; 
 include 'structure/User.php'; 
 
