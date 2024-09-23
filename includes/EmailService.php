@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php'; // Make sure PHPMailer is included
+require '../vendor/autoload.php'; // Ensure PHPMailer is included
 
 class EmailService {
     private $mail;
@@ -19,66 +19,96 @@ class EmailService {
         $this->mail->Port = 587;
     }
 
+    // Send registration email
     public function sendRegistrationEmail($email, $username) {
         try {
             $this->mail->setFrom('evaghjiani04@gmail.com', 'Eeshan');
             $this->mail->addAddress($email, $username);
             $this->mail->Subject = 'Welcome to Our Website';
-            $this->mail->Body    = "
-Dear $username,
 
-We are thrilled to have you on board! Thank you for registering with us. At Vaghjiani Innovations, we strive to provide the best experience for our users. 
+            // HTML Body for Registration Email
+            $this->mail->Body = "
+            <html>
+            <head>
+                <style>
+                    .email-body {
+                        font-family: Arial, sans-serif;
+                        color: #333;
+                        padding: 20px;
+                        background-color: #f4f4f4;
+                        border-radius: 10px;
+                    }
+                    h1, p {
+                        color: #007bff;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class='email-body'>
+                    <h1>Welcome, $username!</h1>
+                    <p>We are thrilled to have you on board! Thank you for registering with us.</p>
+                    <p>At Vaghjiani Innovations, we strive to provide the best experience for our users.</p>
+                    <p>Here are a few things you can do to get started:</p>
+                    <ul>
+                        <li>Explore your dashboard</li>
+                        <li>Customize your profile</li>
+                        <li>Reach out to our support team if you need any assistance</li>
+                    </ul>
+                    <p>We are excited to help you achieve your goals!</p>
+                    <p>Best regards,<br><strong>Eeshan Vaghjiani</strong><br>ICSE Internet Application Programming Project<br>166981<br>+254 704 861 135</p>
+                </div>
+            </body>
+            </html>";
 
-Here are a few things you can do to get started:
-1. Explore your dashboard.
-2. Customize your profile.
-3. Reach out to our support team if you need any assistance.
-
-We are excited to help you achieve your goals!
-
-Best regards,
-Eeshan Vaghjiani ICSE Internet Application Proggraming Project
-166981,
-+254 704 861 135.
-
-" . $username . '!';
+            $this->mail->isHTML(true); // Enable HTML content
             $this->mail->send();
             return true;
         } catch (Exception $e) {
-            return false; // You can log the error message if needed
+            return false; // Log the error if needed
         }
     }
 
+    // Send 2FA code email
     public function send2FACode($email, $username, $code) {
         try {
             $this->mail->setFrom('evaghjiani04@gmail.com', 'Eeshan');
             $this->mail->addAddress($email, $username);
             $this->mail->Subject = 'Your 2FA Code';
-            
-            $this->mail->Body    = "
 
-Dear <h1> $username </h1>,<br>
+            // HTML Body for 2FA Email
+            $this->mail->Body = "
+            <html>
+            <head>
+                <style>
+                    .email-body {
+                        font-family: Arial, sans-serif;
+                        color: black;
+                        padding: 20px;
+                        border-radius: 10px;
+                    }
+                    h2, p {
+                        color: black;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class='email-body'>
+                    <h2>Dear $username,</h2>
+                    <p>For your security, we have enabled two-factor authentication (2FA) for your account.</p>
+                    <p>Your verification code is: <strong style='font-size: 24px;'>$code</strong></p>
+                    <p>Please enter this code in the required field to complete your login process. This code is valid for a short period of time for your security.</p>
+                    <p>If you did not request this code, please ignore this message.</p>
+                    <p>Thank you for being a part of Vaghjiani Innovations!</p>
+                    <p>Best regards,<br> <strong>Eeshan Vaghjiani</strong><br>ICSE Internet Application Programming Project<br>166981<br>+254 704 861 135</p>
+                </div>
+            </body>
+            </html>";
 
-For your security, we have enabled two-factor authentication (2FA) for your account.<br>
-
-Your verification code is: <strong>$code</strong><br><br>
-
-Please enter this code in the required field to complete your login process. This code is valid for a short period of time for your security.
-
-If you did not request this code, please ignore this message.<br>
-
-Thank you for being a part of Vaghjiani Innovations!<br>
-
-Best regards,
-Eeshan Vaghjiani ICSE Internet Application Proggraming Project
-166981, 
-+254 704 861 135.
-";
-        $this->mail->isHTML(true);
+            $this->mail->isHTML(true); // Enable HTML content
             $this->mail->send();
             return true;
         } catch (Exception $e) {
-            return false; // You can log the error message if needed
+            return false; // Log the error if needed
         }
     }
 }
