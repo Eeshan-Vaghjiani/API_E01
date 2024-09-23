@@ -229,21 +229,21 @@ class User {
     
     
     // Generate and send a 2FA code via email
-    public function generate2FACode($userId, $email) {
+    public function generate2FACode($username, $email) {
         $code = rand(100000, 999999); // Generate a 6-digit random code
         $_SESSION['2fa_code'] = $code;
-        $_SESSION['user_id'] = $userId;
+        $_SESSION['username'] = $username;
 
         // Store the code in the session or database for verification
         $query = "UPDATE users SET code = :code WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':code', $code);
-        $stmt->bindParam(':user_id', $userId);
+        $stmt->bindParam(':username', $username);
         $stmt->execute();
 
         // Simulate sending email (replace this with actual email-sending logic)
         $emailService = new EmailService();
-        $emailService->send2FACode($email, $userId, $code);
+        $emailService->send2FACode($email, $username, $code);
     }
 
     // Convert gender to ID
