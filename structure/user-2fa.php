@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['verify_2fa'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend_code'])) {
         $userId = $_SESSION['user_id']; // Assuming user ID is stored in session
         $email = $user->getUserEmail($userId); // Create this method to get the user email
-        $user->generate2FACode($username, $email); // Regenerate and send the code
+        $user->generate2FACode($userId, $email); // Regenerate and send the code
         $user->setFlashMessage('A new 2FA code has been sent to your email.');
         header('Location: user-2fa.php'); // Redirect to refresh the page
         exit();
