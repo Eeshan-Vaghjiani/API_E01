@@ -21,4 +21,3 @@ class fnc{
         return $user." is ". $age;
     }
 }
-
