@@ -217,7 +217,7 @@ class User {
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(':user_id', $userId);
                 $stmt->execute();
-    
+                $_SESSION['loggedin'] = true;
                 header('Location: ../index.php'); // Redirect to the index page
                 exit();
             } else {
