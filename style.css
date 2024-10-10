@@ -37,7 +37,7 @@ body {
 }
 
 .hero-section {
-    background: url('images/hero-background.jpg') no-repeat center center/cover;
+    background: url('../API_E01/images/hero-background.jpg') no-repeat center center/cover;
     height: 100vh;
     color: white;
     display: flex;
@@ -68,13 +68,13 @@ body {
 .hero-section h1 {
     font-size: 3em;
     margin-bottom: 20px;
-    animation: fadeInDown 1s ease-out;
+    /* animation: fadeInDown 1s ease-out; */
 }
 
 .hero-section p {
     font-size: 1.2em;
     margin-bottom: 30px;
-    animation: fadeInUp 1s ease-out;
+    /* animation: fadeInUp 1s ease-out; */
 }
 
 .cta-button {

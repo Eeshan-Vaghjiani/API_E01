@@ -16,7 +16,7 @@ require_once "loadindex.php";
     <?php
         $ObjMenus->main_menu();
     ?>
-    <div class="main-container">
+    <!-- <div class="main-container">
         <div class="hero-section">
             <h1>Welcome to Coding Academy</h1>
             <p>Your journey to mastering coding begins here.</p>
@@ -41,7 +41,7 @@ require_once "loadindex.php";
             <h2>About Us</h2>
             <p>We are dedicated to providing quality education that empowers individuals to become skilled professionals in the tech industry.</p>
         </div>
-    </div>
+    </div> -->
 
     <?php 
         $ObjContents->sidebar(); 

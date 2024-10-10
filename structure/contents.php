@@ -119,5 +119,8 @@ class contents {
         </aside>
         <?php
     }
+    public function about_content(): void{
+        
+    }
 }
 ?>
