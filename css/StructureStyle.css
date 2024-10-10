@@ -16,7 +16,7 @@ body{
     display: block;
     text-decoration: none;
     text-align: left;
-    padding: 14px 16px;
+    /* padding: 14px 16px; */
 }
 
 .topnav a:hover{
