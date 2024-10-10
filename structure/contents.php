@@ -1,47 +1,123 @@
 <?php
+// structure/contents.php
 
-class contents{
-    public function main_content(){
+class contents {
+    public function main_content() {
         ?>
-        <div class="row">
-            <div class="content">
-                <h1>Main Content</h1>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-                </p>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Master the Art of Coding – One Lesson at a Time</h1>
+                <p>Turn your passion for coding into a career with our expert-led tutorials.</p>
+                <a href="includes/signup.php" class="cta-button">Get Started for Free</a>
+                <a href="courses.php" class="cta-button secondary">Explore Courses</a>
             </div>
-        <?php
-    }
-    public function about_content(){
-        ?>
-        <div class="row">
-            <div class="content">
-                <h1>About Us</h1>
-                <p>
-                <img src="images/yankrukov.jpg" class="abt_img" />Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-                </p>
-                <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat
-                </p>
+        </section>
 
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-        <?php
-    }
-    public function sidebar(){
-        ?>
-                <div class="sidebar">
-                    <h1>Side Bar</h1>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
+        <!-- Popular Courses Section -->
+        <section class="section popular-courses" id="courses">
+            <h2 class="section-title">Top Courses to Get You Started</h2>
+            <div class="course-cards">
+                <div class="course-card">
+                    <img src="images/course1.jpg" alt="Python for Beginners">
+                    <h3>Python for Beginners</h3>
+                    <p>Learn Python from the ground up and start building your own applications.</p>
+                    <a href="course1.php" class="cta-button">Enroll Now</a>
+                </div>
+                <div class="course-card">
+                    <img src="images/course2.jpg" alt="JavaScript Essentials">
+                    <h3>JavaScript Essentials</h3>
+                    <p>Master the fundamentals of JavaScript and enhance your web development skills.</p>
+                    <a href="course2.php" class="cta-button">Enroll Now</a>
+                </div>
+                <div class="course-card">
+                    <img src="images/course3.jpg" alt="Web Development">
+                    <h3>Web Development</h3>
+                    <p>Build responsive and dynamic websites using the latest web technologies.</p>
+                    <a href="course3.php" class="cta-button">Enroll Now</a>
                 </div>
             </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="section why-choose-us" id="why-choose-us">
+            <h2 class="section-title">Why Learn with Coding Academy?</h2>
+            <div class="benefits">
+                <div class="benefit">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Expert Tutors</h3>
+                    <p>Learn from professionals with real-world experience.</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Career Growth</h3>
+                    <p>Boost your career with in-demand skills.</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Support</h3>
+                    <p>Get answers and insights from fellow learners.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Testimonials Section -->
+        <section class="section testimonials" id="testimonials">
+            <h2 class="section-title">What Our Students Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <img src="images/testimonial1.jpg" alt="Student 1">
+                    <p>"Coding Academy transformed my career! The courses are well-structured and the instructors are top-notch."</p>
+                    <h4>Jane Doe</h4>
+                    <span>Python for Beginners</span>
+                </div>
+                <div class="testimonial-card">
+                    <img src="images/testimonial2.jpg" alt="Student 2">
+                    <p>"The JavaScript Essentials course gave me the skills I needed to land my first developer job."</p>
+                    <h4>John Smith</h4>
+                    <span>JavaScript Essentials</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Blogs Section -->
+        <section class="section featured-blogs" id="blogs">
+            <h2 class="section-title">Latest in Coding & Tech</h2>
+            <div class="blog-cards">
+                <div class="blog-card">
+                    <img src="images/blog1.jpg" alt="Blog Post 1">
+                    <h3>Top 10 Python Libraries You Should Know</h3>
+                    <p>Discover the most essential Python libraries that can boost your development workflow.</p>
+                    <a href="blog1.php" class="cta-button">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <img src="images/blog2.jpg" alt="Blog Post 2">
+                    <h3>Getting Started with JavaScript ES6</h3>
+                    <p>Learn the new features introduced in ES6 and how they can improve your JavaScript code.</p>
+                    <a href="blog2.php" class="cta-button">Read More</a>
+                </div>
+                <div class="blog-card">
+                    <img src="images/blog3.jpg" alt="Blog Post 3">
+                    <h3>Building Responsive Websites with Flexbox</h3>
+                    <p>Master Flexbox to create flexible and responsive web layouts with ease.</p>
+                    <a href="blog3.php" class="cta-button">Read More</a>
+                </div>
+            </div>
+        </section>
+        <?php
+    }
+
+    public function sidebar() {
+        ?>
+        <aside class="sidebar">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest updates and news about our courses.</p>
+            <form action="subscribe.php" method="POST">
+                <input type="email" name="email" placeholder="Your Email" required>
+                <button type="submit" class="cta-button">Subscribe</button>
+            </form>
+        </aside>
         <?php
     }
 }
+?>
