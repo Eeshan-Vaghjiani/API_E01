@@ -21,8 +21,17 @@ class menus {
             // If the user is logged in and 2FA is successful
             ?>
             <div class="topnav-right">
-                <a href="..\API_E01\index.php">Logout</a>
+                <!-- When clicked, calls the logout script -->
+                <a href="#" onclick="logout()">Logout</a>
             </div>
+
+            <script>
+                function logout() {
+                    // Redirect to the logout script
+                    window.location.href = "../API_E01/includes/logout.php";
+                }
+            </script>
+
             <?php
         } else {
             // If the user is not logged in
