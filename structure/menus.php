@@ -21,7 +21,7 @@ class menus {
             // If the user is logged in and 2FA is successful
             ?>
             <div class="topnav-right">
-                <a href="..\API_E01\includes\logout.php">Logout</a>
+                <a href="..\API_E01\index.php">Logout</a>
             </div>
             <?php
         } else {
