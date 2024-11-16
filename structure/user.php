@@ -115,7 +115,7 @@ class User {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
     
             // Insert the user into the database
-            $query = "INSERT INTO users (fullname, email, username, password, gender_id, role_id) VALUES (:fullname, :email, :username, :password, :gender_id, :role_id)";
+            $query = "INSERT INTO tbl_user (fullname, email, username, password, gender_id, role_id) VALUES (:fullname, :email, :username, :password, :gender_id, :role_id)";
             $stmt = $this->conn->prepare($query);
     
             // Bind parameters
@@ -156,7 +156,7 @@ class User {
             }
     
             // Query to find the user
-            $query = "SELECT user_id, password, email, role_id FROM users WHERE username = :username";
+            $query = "SELECT user_id, password, email, role_id FROM tbl_user WHERE username = :username";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':username', $username);
     
@@ -189,7 +189,7 @@ class User {
     }
     
     public function getUserEmail($userId) {
-        $query = "SELECT email FROM users WHERE user_id = :user_id";
+        $query = "SELECT email FROM tbl_user WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
@@ -203,7 +203,7 @@ class User {
             $userId = $_SESSION['user_id'];
     
             // Adjust the query to select the correct column
-            $query = "SELECT code FROM users WHERE user_id = :user_id";
+            $query = "SELECT code FROM tbl_user WHERE user_id = :user_id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_id', $userId);
             $stmt->execute();
@@ -213,7 +213,7 @@ class User {
             if ($inputCode == $storedCode) {
                 // Clear the code and log in the user
                 $_SESSION['authenticated'] = true;
-                $query = "UPDATE users SET code = NULL WHERE user_id = :user_id";
+                $query = "UPDATE tbl_user SET code = NULL WHERE user_id = :user_id";
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(':user_id', $userId);
                 $stmt->execute();
@@ -232,7 +232,7 @@ class User {
         $code = rand(100000, 999999); // Generate a 6-digit random code
     
         // Fetch the username
-        $query = "SELECT username FROM users WHERE user_id = :user_id";
+        $query = "SELECT username FROM tbl_user WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
@@ -240,7 +240,7 @@ class User {
         $username = $result['username']; // Get the username
     
         // Store the code in the database
-        $query = "UPDATE users SET code = :code WHERE user_id = :user_id";
+        $query = "UPDATE tbl_user SET code = :code WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':code', $code);
         $stmt->bindParam(':user_id', $userId);
@@ -291,13 +291,13 @@ class User {
         unset($_SESSION['flash_message']);
         return null;
     }
-    // Get all users with pagination
+    // Get all tbl_user with pagination
 public function getUsers() {
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 10;
     $offset = ($page - 1) * $limit;
 
-    $query = "SELECT * FROM users LIMIT :limit OFFSET :offset";
+    $query = "SELECT * FROM tbl_user LIMIT :limit OFFSET :offset";
     $stmt = $this->conn->prepare($query);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -315,7 +315,7 @@ public function handleAddUser() {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $gender = $_POST['gender'];
 
-        $query = "INSERT INTO users (fullname, email, username, password, gender_id) VALUES (:fullname, :email, :username, :password, :gender)";
+        $query = "INSERT INTO tbl_user (fullname, email, username, password, gender_id) VALUES (:fullname, :email, :username, :password, :gender)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':fullname', $fullName);
         $stmt->bindParam(':email', $email);
@@ -341,7 +341,7 @@ public function handleUpdateUser() {
         $password = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
         $gender = $_POST['gender'];
 
-        $query = "UPDATE users SET fullname = :fullname, email = :email, username = :username, password = :password, gender_id = :gender WHERE user_id = :user_id";
+        $query = "UPDATE tbl_user SET fullname = :fullname, email = :email, username = :username, password = :password, gender_id = :gender WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':fullname', $fullName);
         $stmt->bindParam(':email', $email);
@@ -365,7 +365,7 @@ public function handleDeleteUser() {
     if (isset($_POST['user_id'])) {
         $userId = $_POST['user_id'];
 
-        $query = "DELETE FROM users WHERE user_id = :user_id";
+        $query = "DELETE FROM tbl_user WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':user_id', $userId);
 
@@ -379,7 +379,7 @@ public function handleDeleteUser() {
 
 // Get user details for update modal
 public function getUser($userId) {
-    $query = "SELECT * FROM users WHERE user_id = :user_id";
+    $query = "SELECT * FROM tbl_user WHERE user_id = :user_id";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':user_id', $userId);
     $stmt->execute();

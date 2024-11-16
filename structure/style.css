@@ -1,0 +1,219 @@
+/* General Body and Container Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1, h5, h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #2c3e50;
+}
+
+.card {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Button Styles with Hover and Transitions */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Success Button */
+button.btn-success {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+button.btn-success:hover {
+    background-color: #2ecc71;
+}
+
+/* Primary Button */
+button.btn-primary {
+    background-color: #3498db;
+    color: #fff;
+}
+
+button.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #000000;
+}
+
+table th {
+    background-color: #2c7bca;
+    color: #0682a1; /* Adjusted text color for better visibility */
+}
+
+table tr:hover {
+    background-color: #0682a180;
+}
+
+/* Charts Section */
+.card .card-body h5 {
+    color: #34495e;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.card .card-body {
+    padding: 30px;
+}
+
+/* Flexbox for layout of the charts side-by-side */
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 4%; /* Space between charts */
+    margin-top: 20px;
+}
+
+#userGenderChart, #registrationsChart {
+    width: 48%; /* Each chart takes up 48% of the width */
+    height: 500px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Total Users Container - Make it Bigger */
+#totalUsersCard {
+    width: 100%; /* Full width for this card */
+    padding: 40px;
+    background-color: #3498db;
+    color: rgb(19, 14, 14);
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#totalUsersCard h5 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+#totalUsersCard p {
+    font-size: 34px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Export Button Group */
+.export-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.export-buttons button {
+    width: 45%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.export-buttons button:hover {
+    transform: translateY(-3px);
+}
+
+.export-buttons button:focus {
+    outline: none;
+}
+
+/* Card Hover Effects */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsiveness */
+@media (max-width: 767px) {
+    .container {
+        padding: 15px;
+    }
+
+    .export-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .export-buttons button {
+        width: 100%;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    /* Stack charts vertically on small screens */
+    .chart-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #userGenderChart, #registrationsChart {
+        width: 100%; /* Full width for small screens */
+        margin-right: 0;
+    }
+
+    /* Make total users card smaller on small screens */
+    #totalUsersCard {
+        width: 100%;
+    }
+}
