@@ -27,14 +27,14 @@ class menus {
             ?>
             <div class="topnav-right">
                 <!-- When clicked, calls the logout script -->
-                <a href="#" onclick="logout()">Logout</a>
+                <a href="../includes/logout.php" onclick="logout()">Logout</a>
                 <a href="structure/analytics-dashboard.php">analytics-dashboard</a>
             </div>
 
             <script>
                 function logout() {
                     // Redirect to the logout script
-                    window.location.href = "/includes/logout.php";
+                    window.location.href = "../includes/logout.php";
                 }
             </script>
 

@@ -3,10 +3,6 @@ require_once __DIR__ . '/structure/Admin-class.php';
 include 'db.php'; 
 include 'structure/User.php'; 
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Instantiate Admin class
 $admin = new Admin($conn);
 

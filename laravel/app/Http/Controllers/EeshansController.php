@@ -11,7 +11,6 @@ class EeshansController extends Controller
     {
         return view('Eeshan');
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -24,9 +23,7 @@ class EeshansController extends Controller
         $userComment->email = $request->input('email');
         $userComment->message = $request->input('message');
         $userComment->save();
-
         // Additional logic or redirection after successful data storage
-
         return redirect()->back()->with('success', 'Comment stored successfully!');
     }
 }
