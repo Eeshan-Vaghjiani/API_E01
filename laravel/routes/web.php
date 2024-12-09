@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,12 @@ Route::delete('/submissions/{submission}', [SubmissionController::class, 'destro
 
 // Or you can use the resource route which is equivalent to all routes above
 // Route::resource('submissions', SubmissionController::class);
+
+Route::get('/resources/views/auth/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [AuthController::class, 'register']);
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
+Route::get('verify-2fa', [AuthController::class, 'show2faForm'])->name('verify-2fa');
+Route::post('verify-2fa', [AuthController::class, 'verify2fa']);
 
 
