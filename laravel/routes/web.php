@@ -26,7 +26,7 @@ Route::delete('/submissions/{submission}', [SubmissionController::class, 'destro
 // Or you can use the resource route which is equivalent to all routes above
 // Route::resource('submissions', SubmissionController::class);
 
-Route::get('/resources/views/auth/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
